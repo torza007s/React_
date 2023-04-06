@@ -2,9 +2,9 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;  
-use App\Http\Controllers\AuthController;  
-
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MemoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,19 +17,18 @@ use App\Http\Controllers\AuthController;
 |
 */
 
-//Route::resource('products',ProductController::class);
+// Route::resource('products', ProductController::class);
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
 // });
-Route::post('/register',[AuthController::class,'register']);
+Route::post('/register', [AuthController::class, 'register']);
 
+Route::resource('memos', MemoController::class);
 
-Route::post('/login',[AuthController::class,'login']);
-Route::group(['middleware'=>'auth:sanctum'],function(){
-          Route::get('/Profile',[AuthController::class,'Profile']);
-        //  Route::post('/store',[ProductController::class,'store']);
-        //  Route::post('/logout',[AuthController::class,'logout']);
-      
-     });
+Route::post('/login', [AuthController::class, 'login']);
+Route::group(['middleware' => 'auth:sanctum'], function () {
+  Route::get('/Profile', [AuthController::class, 'Profile']);
+  //  Route::post('/store',[ProductController::class,'store']);
+  //  Route::post('/logout',[AuthController::class,'logout']);
 
-
+});
