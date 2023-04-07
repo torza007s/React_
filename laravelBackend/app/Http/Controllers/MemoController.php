@@ -19,7 +19,7 @@ class MemoController extends Controller
     public function index()
     {
         //
-        //return Memo::all()->toJson();
+        // return Memo::all()->toJson();
         return Memo::all()->jsonSerialize();
 
     }
