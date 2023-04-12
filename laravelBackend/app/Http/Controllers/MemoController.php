@@ -20,8 +20,7 @@ class MemoController extends Controller
     {
         //
         // return Memo::all()->toJson();
-        return Memo::all()->jsonSerialize();
-
+        return Memo::latest()->first()->jsonSerialize();
     }
 
     /**
@@ -96,5 +95,11 @@ class MemoController extends Controller
     public function destroy(Memo $memo)
     {
         //
+    }
+
+    public function resetdb()
+    {
+        Memo::truncate();
+        return response('reset success', $status = 200);
     }
 }

@@ -23,11 +23,12 @@ use App\Http\Controllers\MemoController;
 // });
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::resource('memos', MemoController::class);
-// Route::group(['middleware' => 'auth:sanctum'], function () {
-//   Route::get('memos', MemoController::class);
-//   Route::post('memos/post', MemoController::class, 'store');
-// });
+// Route::resource('memos', MemoController::class);
+Route::group(['memos'], function () {
+  route::get('memos', [MemoController::class, 'index']);
+  route::post('memos', [MemoController::class ,'store']);
+  route::post('memos/resettable',[ MemoController::class, 'resetdb']);
+});
 
 Route::post('/login', [AuthController::class, 'login']);
 Route::group(['middleware' => 'auth:sanctum'], function () {
