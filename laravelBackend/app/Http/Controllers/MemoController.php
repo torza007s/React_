@@ -6,6 +6,7 @@ use App\Models\Memo;
 use Illuminate\Http\Request;
 
 use App\Http\Requests\StoreMemoRequest;
+use Illuminate\Support\Facades\Validator;
 // use App\Http\Requests\UpdateMemoRequest;
 
 
@@ -48,6 +49,21 @@ class MemoController extends Controller
             'description' => 'require',
             'created_by' => 'require',
         ]);
+
+        $memo = Memo::create($request->all());
+
+        if ($request->hasFile('document')) {
+            $pdf = $request->file('document');
+            $document_path = $pdf->storeAs('public/files/memos/pdf', uniqid() . '.' . $pdf->getClientOriginalExtension());
+            $memo->update(['document_name' => $pdf->getClientOriginalName(), 'document_path' => $document_path]);
+        }
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Memo successfully created',
+            'memo' => $memo,
+        ], 200);
+
         return Memo::create($request->all());
     }
 

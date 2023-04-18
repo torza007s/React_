@@ -4,12 +4,11 @@ import axios from "axios";
 const baseURL = "http://localhost:8000/api/memos";
 
 function FromMemo() {
-  const [memo, setMemo] = useState({
-    //   name: "",
-    //   document: "",
-    //   description: "",
-    //   created_by: "",
-  });
+  const [memo, setMemo] = useState([]);
+  // name: "",
+  // document: "",
+  // description: "",
+  // created_by: "",
 
   // const handleChangeEvent = (event) => {
   //   const value = event.target.value;
@@ -32,15 +31,15 @@ function FromMemo() {
       created_by: created_by,
     };
 
-    axios.post(baseURL, data).then((res) => {
-      setData(res.data);
-      console.log(res.data);
+    axios.post(baseURL, data).then((response) => {
+      setData(response.data);
+      console.log(response.data);
     });
   };
 
   useEffect(() => {
-    axios.get(`${baseURL}/`).then((res) => {
-      setMemo(res.data);
+    axios.get(`${baseURL}/`).then((response) => {
+      setMemo(response.data);
     });
   }, []);
 
@@ -60,9 +59,9 @@ function FromMemo() {
   // if (!memo) return "No Post";
 
   return (
-    <div key={memo.id} class="w-full content-center items-center">
+    <div key={memo.id} className="w-full content-center items-center">
       {/* <div> */}
-      <p></p>
+      <p>Response Section</p>
       {memo && (
         <div>
           <pre className="text-sm">{JSON.stringify(memo, null, 1)}</pre>
@@ -107,12 +106,12 @@ function FromMemo() {
 
       {/* <button onClick={handleSubmitEvent}>Post</button> */}
 
-      <form class="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
+      <form className="bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4 ">
         {/* name input */}
-        <div class="mb-4">
+        <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="name"
+            htmlFor="name"
           >
             Name
           </label>
@@ -126,10 +125,10 @@ function FromMemo() {
           />
         </div>
         {/* Description box */}
-        <div class="mb-4">
+        <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="description"
+            htmlFor="description"
           >
             Description
           </label>
@@ -145,7 +144,7 @@ function FromMemo() {
         <div className="mb-4">
           <label
             className="block text-gray-700 text-sm font-bold mb-2"
-            for="document"
+            htmlFor="document"
           >
             Upload file
           </label>
@@ -153,8 +152,9 @@ function FromMemo() {
             className="block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
             id="document"
             type="file"
-            value={description}
-            onChange={(event) => setDescription(event.target.value)}
+            value={document}
+            onChange={(event) => setDocument(event.target.value)}
+            // onChange={(event) => setDocument(event.target.files[0])}
           />
         </div>
         {/* subbmit btn */}
